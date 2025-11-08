@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bola_ae/widgets/left_drawer.dart';
+import 'package:bola_ae/widgets/add_product.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
@@ -26,6 +28,7 @@ class MyHomePage extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
+      drawer: const LeftDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -119,11 +122,20 @@ class ItemCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         onTap: () {
+          if (item.name == "Create Product"){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AddProductPage(),
+              ),
+            );
+          } else {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!")),
             );
+          }
         },
         child: Container(
           padding: const EdgeInsets.all(8),
