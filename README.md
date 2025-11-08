@@ -69,3 +69,92 @@ Dalam metode build(BuildContext context), parameter context memberikan referensi
 | **Hot Restart**  | Memuat ulang kode dan menjalankan ulang seluruh aplikasi dari awal (`main()` dijalankan kembali).                                      | State aplikasi **hilang** dan dimulai ulang. |
 | **Full Restart** | Memulai ulang seluruh aplikasi dan melakukan kompilasi ulang native code (lebih lama).                                                 | Semua state dan cache **dihapus**.           |
 
+# TUGAS 8
+
+# 1. Jelaskan perbedaan antara Navigator.push() dan Navigator.pushReplacement() pada Flutter. Dalam kasus apa sebaiknya masing-masing digunakan pada aplikasi Football Shop kamu?
+
+- __`Navigator.push():`__
+  
+  Menambahkan halaman baru di atas stack tanpa menghapus halaman sebelumnya.
+  
+  __Contoh:__ Digunakan ketika ingin berpindah ke halaman lain tetapi tetap memungkinkan pengguna kembali ke halaman sebelumnya.
+
+- __`Navigator.pushReplacement():`__
+  
+  Mengganti halaman saat ini dengan halaman baru (halaman lama dihapus dari stack).
+  
+  __Contoh:__ Digunakan ketika kamu tidak ingin pengguna kembali ke halaman sebelumnya, misalnya setelah melakukan aksi penting seperti login atau logout.
+
+# 2. Bagaimana kamu memanfaatkan hierarchy widget seperti Scaffold, AppBar, dan Drawer untuk membangun struktur halaman yang konsisten di seluruh aplikasi?
+Dalam Flutter, setiap halaman dibangun dari hierarki widget, dan tiga komponen penting untuk halaman aplikasi yang konsisten adalah:
+- Scaffold – kerangka utama tiap halaman.
+- AppBar – bagian atas halaman (biasanya untuk judul dan tombol navigasi).
+- Drawer – panel navigasi samping untuk berpindah antar-halaman.
+
+---
+1. `Scaffold`: Pondasi Tiap Halaman
+Scaffold adalah widget utama yang menyediakan struktur dasar halaman seperti:
+- AppBar (header)
+- Drawer (menu samping)
+= Body (konten utama)
+- FloatingActionButton
+- BottomNavigationBar
+Dengan Scaffold, kamu memastikan semua halaman memiliki tata letak dan perilaku yang konsisten.  
+
+💡 Kegunaannya:
+- Semua halaman (HomePage, ProductFormPage, ProductDetailPage) memakai Scaffold.
+- Pengguna langsung mengenali pola tampilan aplikasi.
+- Transisi halaman terasa mulus tanpa perubahan besar pada layout.
+
+2. `AppBar`: Identitas & Navigasi
+AppBar berfungsi sebagai header konsisten di setiap halaman.
+
+💡 Kegunaannya:
+- Memberikan judul halaman yang jelas.
+- Menyediakan tombol aksi spesifik (misalnya tambah produk atau pencarian).
+- Memberi nuansa konsisten di seluruh halaman (warna, tinggi, font, dll).
+
+3. `Drawer`: Navigasi Konsisten
+Drawer adalah panel geser dari sisi kiri layar yang berisi daftar menu ke halaman lain.
+
+💡 Kegunaannya:
+- Menyediakan navigasi cepat antar-halaman.
+- Terlihat seragam di seluruh aplikasi, cukup buat satu Drawer dan panggil di setiap halaman.
+- Menjaga pengalaman pengguna tetap familiar dan mudah.
+
+# 3. Dalam konteks desain antarmuka, apa kelebihan menggunakan layout widget seperti Padding, SingleChildScrollView, dan ListView saat menampilkan elemen-elemen form? Berikan contoh penggunaannya dari aplikasi kamu.
+
+Dalam konteks desain antarmuka, widget seperti `Padding`, `SingleChildScrollView`, dan `ListView` membantu membuat tampilan form lebih rapi, responsif, dan mudah digunakan.
+- `Padding` memberikan jarak antar elemen agar form tidak tampak padat dan lebih nyaman dibaca.
+- `SingleChildScrollView` memungkinkan pengguna menggulir halaman ketika form terlalu panjang, terutama saat keyboard muncul.
+- `ListView` berguna untuk menampilkan banyak elemen form secara dinamis dengan kemampuan scroll otomatis.
+
+Contohnya, pada aplikasi *Bola Ae*, halaman `AddProductPage` menggunakan `Padding` di setiap `TextFormField` agar tampilan rapi, dan `SingleChildScrollView` untuk memastikan seluruh form tetap dapat diakses meskipun kontennya melebihi tinggi layar.
+
+# 4. Bagaimana kamu menyesuaikan warna tema agar aplikasi Football Shop memiliki identitas visual yang konsisten dengan brand toko?
+
+Menyesuaikan warna tema berarti membuat seluruh tampilan aplikasi (AppBar, tombol, latar belakang, teks, ikon) mengikuti identitas visual brand toko.
+
+__Contoh 1__:
+```python
+...
+final List<ItemHomepage> items = [
+    ItemHomepage("All Products", Icons.shopping_bag, Colors.blue),
+    ItemHomepage("My Products", Icons.storefront, Colors.green),
+    ItemHomepage("Create Product", Icons.add, Colors.red),
+  ];
+...
+class ItemHomepage {
+  final String name;
+  final IconData icon;
+  final Color color;
+
+  ItemHomepage(this.name, this.icon, this.color);
+}
+...
+```
+__Contoh 2__:
+```python
+theme: ThemeData(
+         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(secondary: Colors.blueAccent[400]),
+      ),
